@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Andriod_Me</string>
-    <string name="todo">TODO</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
