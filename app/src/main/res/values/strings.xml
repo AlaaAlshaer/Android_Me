@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Andriod_Me</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="fragment_master_list_btn_text">next</string>
 </resources>
