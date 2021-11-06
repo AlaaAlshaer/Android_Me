@@ -2,6 +2,7 @@ package com.example.andriod_me.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 
 
 import com.example.andriod_me.R
@@ -15,10 +16,13 @@ class AndroidMeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_android_me)
 
         val intent = intent
-        val headIndex = intent.getIntExtra(MainActivity.HEAD_INDEX,0)
-        val bodyIndex = intent.getIntExtra(MainActivity.BODY_INDEX,0)
-        val legIndex = intent.getIntExtra(MainActivity.LEG_INDEX,0)
+        val headIndex = intent?.getIntExtra(MainActivity.HEAD_INDEX, 0) ?: 0
+        val bodyIndex = intent?.getIntExtra(MainActivity.BODY_INDEX, 0) ?: 0
+        val legIndex = intent?.getIntExtra(MainActivity.LEG_INDEX, 0) ?: 0
 
+        Log.d("AndroidMeActivity", "legIndex = $legIndex")
+        Log.d("AndroidMeActivity", "bodyIndex = $bodyIndex")
+        Log.d("AndroidMeActivity", "headIndex = $headIndex")
         if (savedInstanceState == null) {
             val headFragment = BodyPartFragment()
             val bodyFragment = BodyPartFragment()

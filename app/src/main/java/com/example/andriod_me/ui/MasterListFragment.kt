@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.GridView
 import androidx.fragment.app.Fragment
 import com.example.andriod_me.R
+import com.example.andriod_me.data.AndroidImageAsset
 import java.lang.ClassCastException
 
 interface OnImageClickListener {
@@ -21,7 +22,6 @@ interface OnButtonClickListener {
 
 class MasterListFragment : Fragment() {
 
-    private var bodyPartsList: List<Int> = listOf()
     private lateinit var onImageClickListener: OnImageClickListener
     private lateinit var onButtonClickListener: OnButtonClickListener
 
@@ -60,8 +60,7 @@ class MasterListFragment : Fragment() {
 
         val gridView = viewRoot.findViewById<GridView>(R.id.fragment_master_list_gv)
         val button = viewRoot.findViewById<Button>(R.id.fragment_master_list_btn_next)
-
-        val masterListAdapter = MasterListAdapter(requireContext(), bodyPartsList)
+        val masterListAdapter = MasterListAdapter(requireContext(), AndroidImageAsset.allPart)
         gridView.adapter = masterListAdapter
         gridView.numColumns = 3
 
@@ -69,14 +68,11 @@ class MasterListFragment : Fragment() {
         gridView.setOnItemClickListener { _, _, itemPosition, _ ->
             onImageClickListener.onSelectedImage(itemPosition)
         }
-        button.setOnClickListener{
+        button.setOnClickListener {
             onButtonClickListener.onClickButton()
         }
 
         return viewRoot
     }
 
-    fun setBodyPartsList(bodyPartsList: List<Int>) {
-        this.bodyPartsList = bodyPartsList
-    }
 }

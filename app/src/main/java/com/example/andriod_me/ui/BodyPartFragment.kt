@@ -39,7 +39,7 @@ class BodyPartFragment : Fragment() {
             savedInstanceState?.getIntegerArrayList(LIST_INDEX) ?: mListIndex
 
 
-        if (mImageIds < mListIndex.size - 1)
+        if (mImageIds <= mListIndex.size - 1)
             imageview.setImageResource(mListIndex[mImageIds])
         else
             Log.d(TAG, "this fragment has a null list of image ids")

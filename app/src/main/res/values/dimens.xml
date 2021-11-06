@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="android_me_fl_head_container_layout_height">180dp</dimen>
+    <dimen name="activity_me_liner_layout_padding">16dp</dimen>
 </resources>
