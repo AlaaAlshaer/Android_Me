@@ -24,6 +24,8 @@ class MasterListFragment : Fragment() {
 
     private lateinit var onImageClickListener: OnImageClickListener
     private lateinit var onButtonClickListener: OnButtonClickListener
+    var mBtnState = false
+    private val btnState = "btnState"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -58,12 +60,17 @@ class MasterListFragment : Fragment() {
             false
         )
 
+        mBtnState = savedInstanceState?.getBoolean(btnState) ?: mBtnState
+
         val gridView = viewRoot.findViewById<GridView>(R.id.fragment_master_list_gv)
         val button = viewRoot.findViewById<Button>(R.id.fragment_master_list_btn_next)
-        val masterListAdapter = MasterListAdapter(requireContext(), AndroidImageAsset.allPart)
-        gridView.adapter = masterListAdapter
-        gridView.numColumns = 3
 
+        if (mBtnState) {
+            button.visibility = View.GONE
+            gridView.numColumns = 2
+        }
+
+        gridView.adapter = MasterListAdapter(requireContext(), AndroidImageAsset.allPart)
 
         gridView.setOnItemClickListener { _, _, itemPosition, _ ->
             onImageClickListener.onSelectedImage(itemPosition)
@@ -73,6 +80,10 @@ class MasterListFragment : Fragment() {
         }
 
         return viewRoot
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean(btnState, mBtnState)
     }
 
 }

@@ -20,15 +20,10 @@ class AndroidMeActivity : AppCompatActivity() {
         val bodyIndex = intent?.getIntExtra(MainActivity.BODY_INDEX, 0) ?: 0
         val legIndex = intent?.getIntExtra(MainActivity.LEG_INDEX, 0) ?: 0
 
-        Log.d("AndroidMeActivity", "legIndex = $legIndex")
-        Log.d("AndroidMeActivity", "bodyIndex = $bodyIndex")
-        Log.d("AndroidMeActivity", "headIndex = $headIndex")
         if (savedInstanceState == null) {
             val headFragment = BodyPartFragment()
             val bodyFragment = BodyPartFragment()
             val legFragment = BodyPartFragment()
-
-            val supportFragmentManager = supportFragmentManager
 
             headFragment.setMListIndex(AndroidImageAsset.headList)
             headFragment.setMImageIds(headIndex)
@@ -38,15 +33,10 @@ class AndroidMeActivity : AppCompatActivity() {
             legFragment.setMImageIds(legIndex)
 
             supportFragmentManager.beginTransaction()
-                .add(R.id.activity_android_me_fl_head_container, headFragment)
-                .commit()
-
-            supportFragmentManager.beginTransaction()
-                .add(R.id.activity_android_me_fl_body_container, bodyFragment)
-                .commit()
-
-            supportFragmentManager.beginTransaction()
-                .add(R.id.activity_android_me_fl_leg_container, legFragment)
+                .setReorderingAllowed(true)
+                .add(R.id.head_container, headFragment)
+                .add(R.id.body_container, bodyFragment)
+                .add(R.id.leg_container, legFragment)
                 .commit()
 
         }

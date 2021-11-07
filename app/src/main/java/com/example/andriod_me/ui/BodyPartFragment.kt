@@ -12,16 +12,12 @@ import com.example.andriod_me.R
 
 class BodyPartFragment : Fragment() {
 
-    companion object {
-        private const val LIST_INDEX = "listIndex"
-        private const val LIST_IMAGE_IDS = "imageIds"
-    }
-
 
     private val TAG = this::class.simpleName
     private var mListIndex: ArrayList<Int> = arrayListOf()
     private var mImageIds: Int = 0
-
+    private val listIndex = "listIndex"
+    private val listImageIds = "imageIds"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,9 +30,9 @@ class BodyPartFragment : Fragment() {
             false
         ) as ImageView
 
-        mImageIds = savedInstanceState?.getInt(LIST_IMAGE_IDS) ?: mImageIds
+        mImageIds = savedInstanceState?.getInt(listImageIds) ?: mImageIds
         mListIndex =
-            savedInstanceState?.getIntegerArrayList(LIST_INDEX) ?: mListIndex
+            savedInstanceState?.getIntegerArrayList(listIndex) ?: mListIndex
 
 
         if (mImageIds <= mListIndex.size - 1)
@@ -68,8 +64,8 @@ class BodyPartFragment : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putIntegerArrayList(LIST_INDEX, mListIndex)
-        outState.putInt(LIST_IMAGE_IDS, mImageIds)
+        outState.putIntegerArrayList(listIndex, mListIndex)
+        outState.putInt(listImageIds, mImageIds)
     }
 
 

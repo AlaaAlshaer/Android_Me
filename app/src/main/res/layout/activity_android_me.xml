@@ -12,18 +12,18 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/activity_android_me_fl_head_container"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/head_container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/android_me_fl_head_container_layout_height" />
 
-        <FrameLayout
-            android:id="@+id/activity_android_me_fl_body_container"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/body_container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/android_me_fl_head_container_layout_height" />
 
-        <FrameLayout
-            android:id="@+id/activity_android_me_fl_leg_container"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/leg_container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/android_me_fl_head_container_layout_height" />
     </LinearLayout>
