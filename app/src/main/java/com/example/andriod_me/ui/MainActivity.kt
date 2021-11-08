@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity(), OnImageClickListener, OnButtonClickLis
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportFragmentManager.fragmentFactory =
+            MyFragmentFactory(MasterListAdapter(this, listOf()))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -36,7 +38,8 @@ class MainActivity : AppCompatActivity(), OnImageClickListener, OnButtonClickLis
         mPaneTwo = linearLayout != null
 
         if (savedInstanceState == null) {
-            val masterListFragment = MasterListFragment()
+            val masterListFragment =
+                MasterListFragment(MasterListAdapter(this, AndroidImageAsset.allPart))
             masterListFragment.mBtnState = mPaneTwo
 
             supportFragmentManager.beginTransaction()
@@ -113,7 +116,6 @@ class MainActivity : AppCompatActivity(), OnImageClickListener, OnButtonClickLis
         bundle.putInt(HEAD_INDEX, headIndex)
         bundle.putInt(BODY_INDEX, bodyIndex)
         bundle.putInt(LEG_INDEX, legIndex)
-
 
         val intent = Intent(
 

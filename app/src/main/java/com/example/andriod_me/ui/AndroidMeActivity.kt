@@ -2,7 +2,7 @@ package com.example.andriod_me.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+
 
 
 import com.example.andriod_me.R

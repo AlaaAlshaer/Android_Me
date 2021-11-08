@@ -8,8 +8,17 @@ import android.widget.ImageView
 
 class MasterListAdapter(
     private val context: Context,
-    private val bodyPartsList: List<Int>,
+    private var bodyPartsList: List<Int>,
 ) : BaseAdapter() {
+
+    fun setBodyPartsList(bodyPartsList: List<Int>?) {
+        if (bodyPartsList != null) {
+            this.bodyPartsList = bodyPartsList
+            notifyDataSetChanged()
+        }
+    }
+
+    fun getBodyPartsList() = bodyPartsList
 
 
     override fun getCount(): Int {

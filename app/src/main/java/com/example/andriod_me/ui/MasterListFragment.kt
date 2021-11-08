@@ -9,8 +9,8 @@ import android.widget.Button
 import android.widget.GridView
 import androidx.fragment.app.Fragment
 import com.example.andriod_me.R
-import com.example.andriod_me.data.AndroidImageAsset
 import java.lang.ClassCastException
+import java.util.ArrayList
 
 interface OnImageClickListener {
     fun onSelectedImage(position: Int)
@@ -20,12 +20,13 @@ interface OnButtonClickListener {
     fun onClickButton()
 }
 
-class MasterListFragment : Fragment() {
+class MasterListFragment(private val mMasterListAdapter: MasterListAdapter) : Fragment() {
 
     private lateinit var onImageClickListener: OnImageClickListener
     private lateinit var onButtonClickListener: OnButtonClickListener
     var mBtnState = false
     private val btnState = "btnState"
+    private val bodyPartsList = "bodyPartsList"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -61,6 +62,7 @@ class MasterListFragment : Fragment() {
         )
 
         mBtnState = savedInstanceState?.getBoolean(btnState) ?: mBtnState
+        mMasterListAdapter.setBodyPartsList(savedInstanceState?.getIntegerArrayList(bodyPartsList))
 
         val gridView = viewRoot.findViewById<GridView>(R.id.fragment_master_list_gv)
         val button = viewRoot.findViewById<Button>(R.id.fragment_master_list_btn_next)
@@ -70,7 +72,7 @@ class MasterListFragment : Fragment() {
             gridView.numColumns = 2
         }
 
-        gridView.adapter = MasterListAdapter(requireContext(), AndroidImageAsset.allPart)
+        gridView.adapter = mMasterListAdapter
 
         gridView.setOnItemClickListener { _, _, itemPosition, _ ->
             onImageClickListener.onSelectedImage(itemPosition)
@@ -83,6 +85,10 @@ class MasterListFragment : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        outState.putIntegerArrayList(
+            bodyPartsList,
+            mMasterListAdapter.getBodyPartsList() as ArrayList<Int>
+        )
         outState.putBoolean(btnState, mBtnState)
     }
 
