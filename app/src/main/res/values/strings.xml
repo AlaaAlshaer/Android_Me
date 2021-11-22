@@ -1,5 +1,13 @@
 <resources>
-    <string name="app_name">Andriod_Me</string>
+    <string name="app_name">Android_Me</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="fragment_master_list_btn_text">next</string>
+    <string name="text_label_1">list</string>
+    <string name="text_label_2">person</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_profile">Profile</string>
+    <string name="button_text">click me</string>
+    <string name="body_part_title">Body Parts</string>
 </resources>

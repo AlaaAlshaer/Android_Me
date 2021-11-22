@@ -11,15 +11,6 @@ class MasterListAdapter(
     private var bodyPartsList: List<Int>,
 ) : BaseAdapter() {
 
-    fun setBodyPartsList(bodyPartsList: List<Int>?) {
-        if (bodyPartsList != null) {
-            this.bodyPartsList = bodyPartsList
-            notifyDataSetChanged()
-        }
-    }
-
-    fun getBodyPartsList() = bodyPartsList
-
 
     override fun getCount(): Int {
         return bodyPartsList.size

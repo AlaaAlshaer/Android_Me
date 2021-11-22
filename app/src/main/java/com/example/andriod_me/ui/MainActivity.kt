@@ -1,130 +1,87 @@
 package com.example.andriod_me.ui
 
-import android.content.Intent
+
 import android.os.Bundle
-import android.util.Log
-import android.widget.LinearLayout
 
 
 import androidx.appcompat.app.AppCompatActivity
-
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 
 import com.example.andriod_me.R
 import com.example.andriod_me.data.AndroidImageAsset
+import com.example.andriod_me.databinding.ActivityMainBinding
+import com.example.andriod_me.extension.active
+import com.example.andriod_me.extension.switchFragment
+import com.example.andriod_me.helper.*
 
 
-class MainActivity : AppCompatActivity(), OnImageClickListener, OnButtonClickListener {
+class MainActivity : AppCompatActivity() {
 
-    private var headIndex = 0
-    private var bodyIndex = 0
-    private var legIndex = 0
-    private var mPaneTwo = false
+    private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
+    private lateinit var binding: ActivityMainBinding
 
-    companion object {
-        const val HEAD_INDEX = "headIndex"
-        const val BODY_INDEX = "bodyIndex"
-        const val LEG_INDEX = "legIndex"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportFragmentManager.fragmentFactory =
-            MyFragmentFactory(MasterListAdapter(this, listOf()))
+            MyFragmentFactory(AndroidImageAsset.allPart, AndroidImageAsset.ImageArray)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        val linearLayout =
-            findViewById<LinearLayout>(R.id.activity_android_me_liner_layout)
+        restoreSavedInstanceState(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        mPaneTwo = linearLayout != null
-
-        if (savedInstanceState == null) {
-            val masterListFragment =
-                MasterListFragment(MasterListAdapter(this, AndroidImageAsset.allPart))
-            masterListFragment.mBtnState = mPaneTwo
-
-            supportFragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.activity_main_master_list_container, masterListFragment)
-                .commit()
+        binding.toolbar.apply {
+            setSupportActionBar(this)
         }
 
 
-        if (mPaneTwo) {
-            if (savedInstanceState == null) {
-                val headFragment = BodyPartFragment()
-                val bodyFragment = BodyPartFragment()
-                val legFragment = BodyPartFragment()
+        binding.bottomNavigation.apply {
+            // Set a default position
+            active(navPosition.position) // Extension function
 
-                headFragment.setMListIndex(AndroidImageAsset.headList)
-                bodyFragment.setMListIndex(AndroidImageAsset.bodyList)
-                legFragment.setMListIndex(AndroidImageAsset.legList)
-
-                supportFragmentManager.beginTransaction()
-                    .setReorderingAllowed(true)
-                    .add(R.id.head_container, headFragment)
-                    .add(R.id.body_container, bodyFragment)
-                    .add(R.id.leg_container, legFragment)
-                    .commit()
+            // Set a listener for handling selection events on bottom navigation items
+            setOnItemSelectedListener { item ->
+                navPosition = findNavigationPositionById(item.itemId)
+                switchFragment(navPosition)
             }
         }
-    }
 
-    override fun onSelectedImage(position: Int) {
-
-        val selectIndex: Int = position / 12
-
-        val listIndex: Int = position - 12 * selectIndex
-
-        if (mPaneTwo) {
-            val newFragment = BodyPartFragment()
-            newFragment.setMImageIds(listIndex)
-
-            val manager = supportFragmentManager
-            when (selectIndex) {
-                0 -> {
-                    newFragment.setMListIndex(AndroidImageAsset.headList)
-                    manager.beginTransaction()
-                        .replace(R.id.head_container, newFragment)
-                        .commit()
-                }
-                1 -> {
-                    newFragment.setMListIndex(AndroidImageAsset.bodyList)
-                    manager.beginTransaction()
-                        .replace(R.id.body_container, newFragment)
-                        .commit()
-                }
-                2 -> {
-                    newFragment.setMListIndex(AndroidImageAsset.legList)
-                    manager.beginTransaction()
-                        .replace(R.id.leg_container, newFragment)
-                        .commit()
-                }
-            }
-        } else {
-            when (selectIndex) {
-                0 -> headIndex = listIndex
-                1 -> bodyIndex = listIndex
-                2 -> legIndex = listIndex
-            }
-        }
+        // Add the home fragment
+        savedInstanceState ?: switchFragment(BottomNavigationPosition.HOME)
 
 
     }
 
-    override fun onClickButton() {
-        val bundle = Bundle()
-        bundle.putInt(HEAD_INDEX, headIndex)
-        bundle.putInt(BODY_INDEX, bodyIndex)
-        bundle.putInt(LEG_INDEX, legIndex)
-
-        val intent = Intent(
-
-            this, AndroidMeActivity::class.java
-        )
-        intent.putExtras(bundle)
-
-        Log.d("MainActivity", "next btn clicked")
-        startActivity(intent)
+    override fun onSaveInstanceState(outState: Bundle) {
+        // Store the current navigation position.
+        outState.putInt(KEY_POSITION, navPosition.id)
+        super.onSaveInstanceState(outState)
     }
+
+    private fun restoreSavedInstanceState(savedInstanceState: Bundle?) {
+        // Restore the current navigation position.
+        savedInstanceState?.getInt(KEY_POSITION, BottomNavigationPosition.HOME.id)?.also {
+            navPosition = findNavigationPositionById(it)
+        }
+    }
+
+    private fun switchFragment(navPosition: BottomNavigationPosition): Boolean {
+        return findFragment(navPosition).let {
+            supportFragmentManager.switchFragment(it, navPosition.getTag()) // Extension function
+        }
+    }
+
+    private fun findFragment(position: BottomNavigationPosition): Fragment {
+        return supportFragmentManager.findFragmentByTag(position.getTag())
+            ?: position.createFragment(
+                AndroidImageAsset.allPart,
+                AndroidImageAsset.ImageArray
+            )
+    }
+
+    companion object {
+        const val KEY_POSITION = "keyPosition"
+    }
+
 
 }

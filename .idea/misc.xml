@@ -5,10 +5,25 @@
       <map>
         <entry key="..\:/Users/Lion/AndroidStudioProjects/Andriod_Me/app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/Lion/AndroidStudioProjects/Andriod_Me/app/src/main/res/layout/fragment_body_part.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/drawable/dark_background.xml" value="0.13518518518518519" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/drawable/selector_bottom_nav.xml" value="0.11481481481481481" />
         <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout-sw600dp/activity_main.xml" value="0.14444444444444443" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout-sw600dp/fragment_dashboard.xml" value="0.1284722222222222" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout-sw600dp/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout/activity_android_me.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout/fragment_body_part.xml" value="0.1" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout/fragment_container.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout/fragment_dashboard.xml" value="0.1284722222222222" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout/fragment_home.xml" value="0.1712962962962963" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout/fragment_image_list.xml" value="0.16" />
         <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout/fragment_master_list.xml" value="0.1" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout/fragment_notifications.xml" value="0.1712962962962963" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout/fragment_profile.xml" value="0.1712962962962963" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout/image_rv_item.xml" value="0.18" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/layout/view_pager2_container.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Lion/AndroidStudioProjects/AndroidMe-app/app/src/main/res/menu/navigation.xml" value="0.1712962962962963" />
       </map>
     </option>
   </component>
