@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.transition.TransitionInflater
 import com.example.andriod_me.R
 import com.example.andriod_me.databinding.FragmentNotificationsBinding
 
@@ -20,6 +21,11 @@ class NotificationsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+
+        enterTransition =
+            TransitionInflater.from(requireContext()).inflateTransition(R.transition.fade)
+        exitTransition =
+            TransitionInflater.from(requireContext()).inflateTransition(R.transition.slide_right)
 
         requireActivity().apply {
             title = getString(R.string.title_notifications)

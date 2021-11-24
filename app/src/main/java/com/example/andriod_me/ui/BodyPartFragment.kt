@@ -6,20 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.transition.TransitionInflater
 import com.example.andriod_me.R
 import com.example.andriod_me.databinding.FragmentBodyPartBinding
+import com.example.andriod_me.viewModel.HomeFragmentViewModel
 
 
 class BodyPartFragment : Fragment() {
 
-
-    var mHeadList = listOf<Int>()
-    var mBodyList = listOf<Int>()
-    var mLegList = listOf<Int>()
-    var mHeadIds: Int = 0
-    var mBodyIds: Int = 0
-    var mLegIds: Int = 0
     private lateinit var binding: FragmentBodyPartBinding
+
+    private val viewModel: HomeFragmentViewModel by viewModels(
+        ownerProducer = { requireParentFragment() }
+    )
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +29,8 @@ class BodyPartFragment : Fragment() {
     ): View {
 
         binding = FragmentBodyPartBinding.inflate(inflater, container, false)
+        enterTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.fade)
+        exitTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.slide_right)
         requireActivity().apply {
             title = getString(R.string.body_part_title)
         }
@@ -36,81 +39,70 @@ class BodyPartFragment : Fragment() {
         val imageviewLeg = binding.fragmentBodyPartIvLegs
 
 
-        savedInstanceState?.apply {
-            mHeadIds = savedInstanceState.getInt(HEAD_INDEX)
-            mBodyIds = savedInstanceState.getInt(BODY_INDEX)
-            mLegIds = savedInstanceState.getInt(LEG_INDEX)
-            mHeadList = savedInstanceState.getIntArray(HEAD_LIST)!!.asList()
-            mBodyList = savedInstanceState.getIntArray(BODY_LIST)!!.asList()
-            mLegList = savedInstanceState.getIntArray(LEG_LIST)!!.asList()
-        }
 
+        viewModel.headList.observe(viewLifecycleOwner,{headList ->
+            var index = 0
+            imageviewHead.setImageResource(headList[index])
 
-        if (mHeadList.isNotEmpty()) {
-            imageviewHead.setImageResource(mHeadList[mHeadIds])
-        }
-        if (mBodyList.isNotEmpty()) {
-            imageviewBody.setImageResource(mBodyList[mBodyIds])
-        }
-        if (mLegList.isNotEmpty()) {
-            imageviewLeg.setImageResource(mLegList[mLegIds])
-        }
+            viewModel.selectedHead.observe(viewLifecycleOwner, {
+                index = it
+                imageviewHead.setImageResource(headList[it])
+            })
 
+            imageviewHead.setOnClickListener {
+                index++
+                if (index > headList.size - 1) {
+                    index = 0
+                }
+                viewModel.selectHead(index)
+            }
+        })
 
-        imageviewHead.setOnClickListener {
-            mHeadIds++
-            if (mHeadIds > mHeadList.size - 1) {
-                mHeadIds = 0
-            }
-            if (mHeadList.isNotEmpty()) {
-                imageviewHead.setImageResource(mHeadList[mHeadIds])
-            }
-        }
+        viewModel.bodyList.observe(viewLifecycleOwner,{bodyList ->
+            var index = 0
+            imageviewBody.setImageResource(bodyList[index])
 
-        imageviewBody.setOnClickListener {
-            mBodyIds++
-            if (mBodyIds > mBodyList.size - 1) {
-                mBodyIds = 0
-            }
-            if (mBodyList.isNotEmpty()) {
-                imageviewBody.setImageResource(mBodyList[mBodyIds])
-            }
-        }
+            viewModel.selectedBody.observe(viewLifecycleOwner, {
+                index = it
+                imageviewBody.setImageResource(bodyList[it])
+            })
 
-        imageviewLeg.setOnClickListener {
-            mLegIds++
-            if (mLegIds > mLegList.size - 1) {
-                mLegIds = 0
+            imageviewBody.setOnClickListener {
+                index++
+                if (index > bodyList.size - 1) {
+                    index = 0
+                }
+                viewModel.selectBody(index)
             }
-            if (mLegList.isNotEmpty()) {
-                imageviewLeg.setImageResource(mLegList[mLegIds])
+        })
+
+        viewModel.legList.observe(viewLifecycleOwner,{legList ->
+            var index = 0
+            imageviewLeg.setImageResource(legList[index])
+
+            viewModel.selectedLeg.observe(viewLifecycleOwner, {
+                index = it
+                imageviewLeg.setImageResource(legList[it])
+            })
+
+            imageviewLeg.setOnClickListener {
+                index++
+                if (index > legList.size - 1) {
+                    index = 0
+                }
+                viewModel.selectLeg(index)
             }
-        }
+        })
 
         return binding.root
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(HEAD_INDEX, mHeadIds)
-        outState.putInt(BODY_INDEX, mBodyIds)
-        outState.putInt(LEG_INDEX, mLegIds)
-        outState.putIntArray(HEAD_LIST, mHeadList.toIntArray())
-        outState.putIntArray(BODY_LIST, mBodyList.toIntArray())
-        outState.putIntArray(LEG_LIST, mLegList.toIntArray())
-    }
-
     init {
-        Log.d("BodyPartFragment", "BodyPartFragment")
+        Log.d(TAG, "init")
     }
 
     companion object {
         const val TAG: String = "BodyPartFragment"
-        const val HEAD_INDEX: String = "head"
-        const val BODY_INDEX: String = "body"
-        const val LEG_INDEX: String = "leg"
-        const val HEAD_LIST: String = "headList"
-        const val BODY_LIST: String = "bodyList"
-        const val LEG_LIST: String = "legList"
     }
 
 

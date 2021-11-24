@@ -3,10 +3,9 @@ package com.example.andriod_me.extension
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import com.example.andriod_me.R
-import com.example.andriod_me.ui.HomeFragment
+
 
 
 fun FragmentManager.switchFragment(fragment: Fragment, tag: String): Boolean {
@@ -25,7 +24,13 @@ fun FragmentManager.switchFragment(fragment: Fragment, tag: String): Boolean {
             add(R.id.container, fragment, tag)
         }
         // Set the animation for this transaction
-        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        //setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        /*setCustomAnimations(
+            R.anim.slide_in,
+            R.anim.fade_out,
+            R.anim.fade_in,
+            R.anim.slide_out
+        )*/
 
     }
     // Immediately execute transactions

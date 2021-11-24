@@ -1,23 +1,22 @@
 package com.example.andriod_me.ui
 
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
+
 import androidx.recyclerview.widget.RecyclerView
 import com.example.andriod_me.R
-import com.example.andriod_me.data.Image
 
-class ImageListAdapter(private val imageArray: ArrayList<Image>) :
+class ImageListAdapter(
+    private val list: List<Int>,
+    private val onImageClickListener: OnImageClickListener
+) :
     RecyclerView.Adapter<ImageListAdapter.Holder>() {
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val imageIv: ImageView = itemView.findViewById(R.id.image_rv_item_iv)
-        val titleTv: TextView = itemView.findViewById(R.id.image_rv_item_tv_image_title)
-
-
+        val imageIv: ImageView = itemView.findViewById(R.id.image)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -27,12 +26,18 @@ class ImageListAdapter(private val imageArray: ArrayList<Image>) :
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.imageIv.setImageResource(imageArray[position].resource)
-        holder.titleTv.text = imageArray[position].title
+        holder.imageIv.setImageResource(list[position])
+        holder.imageIv.setOnClickListener {
+            onImageClickListener.onImageClick(position)
+        }
     }
 
     override fun getItemCount(): Int {
-        return imageArray.size
+        return list.size
+    }
+
+    interface OnImageClickListener {
+        fun onImageClick(position: Int)
     }
 
 }

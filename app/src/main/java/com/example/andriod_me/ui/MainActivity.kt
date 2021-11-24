@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 
 import com.example.andriod_me.R
-import com.example.andriod_me.data.AndroidImageAsset
 import com.example.andriod_me.databinding.ActivityMainBinding
 import com.example.andriod_me.extension.active
 import com.example.andriod_me.extension.switchFragment
@@ -23,11 +22,9 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportFragmentManager.fragmentFactory =
-            MyFragmentFactory(AndroidImageAsset.allPart, AndroidImageAsset.ImageArray)
         super.onCreate(savedInstanceState)
-
         restoreSavedInstanceState(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         binding.toolbar.apply {
@@ -73,10 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun findFragment(position: BottomNavigationPosition): Fragment {
         return supportFragmentManager.findFragmentByTag(position.getTag())
-            ?: position.createFragment(
-                AndroidImageAsset.allPart,
-                AndroidImageAsset.ImageArray
-            )
+            ?: position.createFragment()
     }
 
     companion object {

@@ -24,15 +24,13 @@ fun findNavigationPositionById(id: Int): BottomNavigationPosition = when (id) {
     else -> BottomNavigationPosition.HOME
 }
 
-fun BottomNavigationPosition.createFragment(
-    mBodyPartList: List<Int>,
-    mImageArrayList: ArrayList<Image>
-): Fragment = when (this) {
-    BottomNavigationPosition.HOME -> HomeFragment.newInstance(mBodyPartList)
-    BottomNavigationPosition.DASHBOARD -> DashboardFragment.newInstance(mImageArrayList)
-    BottomNavigationPosition.NOTIFICATIONS -> NotificationsFragment.newInstance()
-    BottomNavigationPosition.PROFILE -> ProfileFragment.newInstance()
-}
+fun BottomNavigationPosition.createFragment(): Fragment =
+    when (this) {
+        BottomNavigationPosition.HOME -> HomeFragment.newInstance()
+        BottomNavigationPosition.DASHBOARD -> DashboardFragment.newInstance()
+        BottomNavigationPosition.NOTIFICATIONS -> NotificationsFragment.newInstance()
+        BottomNavigationPosition.PROFILE -> ProfileFragment.newInstance()
+    }
 
 fun BottomNavigationPosition.getTag(): String = when (this) {
     BottomNavigationPosition.HOME -> HomeFragment.TAG
